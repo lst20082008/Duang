@@ -8,6 +8,7 @@ public class SpeedTest : MonoBehaviour
     public GameObject text;
     public float finalSpeed;
     public GameObject hp;
+    public GameObject target;
     private bool isDown;
     private bool notCross;
     private Vector2 lastMousePos;
@@ -32,6 +33,9 @@ public class SpeedTest : MonoBehaviour
         {
             isDown = false;
             Debug.Log("up");
+        }
+        if (isDown) {
+            target.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         if (isDown && notCross)
         {
