@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class SpeedTest : MonoBehaviour
 {
     public float finalSpeed;
-    public GameObject hp;
+    public GameObject enemyHP;
+    public GameObject playerHP;
     public bool flipHand;
     public GameObject target_left;
     public GameObject target_right;
+    public int enemyAttack;
     private bool isDown;
     private bool notCross;
     private Vector2 lastMousePos;
@@ -39,12 +41,10 @@ public class SpeedTest : MonoBehaviour
                 target_left.transform.parent.parent.gameObject.SetActive(false);
                 target_right.transform.parent.parent.gameObject.SetActive(true);
             }
-            Debug.Log("down");
         }
         if (Input.GetMouseButtonUp(0))
         {
             isDown = false;
-            Debug.Log("up");
         }
         if (isDown) {
             if (!flipHand)
@@ -67,7 +67,7 @@ public class SpeedTest : MonoBehaviour
                 {
                     notCross = false;
                     finalSpeed = speed;
-                    hp.GetComponent<Slider>().value -= finalSpeed;
+                    enemyHP.GetComponent<Slider>().value -= finalSpeed;
                 }
             }
             else {
@@ -75,11 +75,16 @@ public class SpeedTest : MonoBehaviour
                 {
                     notCross = false;
                     finalSpeed = speed;
-                    hp.GetComponent<Slider>().value -= finalSpeed;
+                    enemyHP.GetComponent<Slider>().value -= finalSpeed;
                 }
             }
             
         }
     }
 
+    public void HitPlayer()
+    {
+        Debug.Log("hit");
+        playerHP.GetComponent<Slider>().value -= enemyAttack;
+    }
 }
