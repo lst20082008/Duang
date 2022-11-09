@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public GameObject target_left;
     public GameObject target_right;
     public int hp;
+    public SpriteRenderer sr;
+    public PolygonCollider2D collider;
 
     private bool isDown;
     private bool notCross;
@@ -20,6 +22,16 @@ public class Player : MonoBehaviour
     {
         isDown = false;
         notCross = true;
+        DrawCollider(sr, collider);
+    }
+
+    public void DrawCollider(SpriteRenderer sr, PolygonCollider2D collider)
+    {
+        for (int i = 0; i < sr.sprite.GetPhysicsShapeCount(); i++) {
+            List<Vector2> list = new List<Vector2>();
+            sr.sprite.GetPhysicsShape(i, list);
+            collider.SetPath(i, list);
+        }
     }
 
     public void TakeDamage(int damage)
